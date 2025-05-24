@@ -1,6 +1,11 @@
-import { Controller, Get, Post, Body, Param, Res } from '@nestjs/common';
-
-import { Response } from 'express';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  InternalServerErrorException,
+} from '@nestjs/common';
 
 import { QuestionsService } from './questions.service';
 
@@ -11,15 +16,16 @@ export class QuestionsController {
   constructor(private readonly questionsService: QuestionsService) {}
 
   @Post()
-  create(@Body() createQuestionDto: CreateQuestionDto, @Res() res: Response) {
+  create(@Body() createQuestionDto: CreateQuestionDto) {
     try {
       const result = this.questionsService.create(createQuestionDto);
-      return res.status(201).json({
+      return {
         message: 'question_created_successfully',
-        result,
-      });
+        statusCode: 201,
+        data: result,
+      };
     } catch (error) {
-      return res.status(500).json({
+      throw new InternalServerErrorException({
         message: error.message || 'error_created_question',
         error: error.toString(),
       });
@@ -27,15 +33,16 @@ export class QuestionsController {
   }
 
   @Get(':level')
-  find(@Param('level') level: string, @Res() res: Response) {
+  find(@Param('level') level: string) {
     try {
       const result = this.questionsService.find(+level);
-      return res.status(20).json({
+      return {
         message: 'got_questions_successfully',
-        result,
-      });
+        statusCode: 200,
+        data: result,
+      };
     } catch (error) {
-      return res.status(500).json({
+      throw new InternalServerErrorException({
         message: error.message || 'got_questions_question',
         error: error.toString(),
       });
