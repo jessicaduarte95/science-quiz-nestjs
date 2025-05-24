@@ -8,7 +8,7 @@ export class QuestionsService {
     return createQuestionDto;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} question`;
+  find(level: number) {
+    return `This action returns a #${level} question`;
   }
 }
