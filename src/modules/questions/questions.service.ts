@@ -11,14 +11,14 @@ export class QuestionsService {
     return createQuestionDto;
   }
 
-  find(level: number) {
+  getQuestionsByLevel(level: number) {
     return `This action returns a #${level} question`;
   }
 
   async getTotalLevel() {
     try {
       // Busca o total de níveis
-      const totalLevel = await this.questionsRepository.getTotalLevel();
+      const totalLevel = await this.questionsRepository.findTotalLevel();
       return {
         totalLevel: totalLevel,
       };

@@ -8,8 +8,7 @@ export class QuestionsRepository {
     @InjectModel(QuestionsModel)
     private readonly questionModel: typeof QuestionsModel,
   ) {}
-
-  async getTotalLevel() {
+  async findTotalLevel() {
     return await this.questionModel.max('level');
   }
 }

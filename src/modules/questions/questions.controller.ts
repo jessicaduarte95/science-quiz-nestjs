@@ -33,9 +33,9 @@ export class QuestionsController {
   }
 
   @Get(':level')
-  find(@Param('level') level: string) {
+  getQuestionsByLevel(@Param('level') level: string) {
     try {
-      const result = this.questionsService.find(+level);
+      const result = this.questionsService.getQuestionsByLevel(+level);
       return {
         message: 'got_questions_successfully',
         statusCode: 200,
