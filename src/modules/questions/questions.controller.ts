@@ -48,4 +48,20 @@ export class QuestionsController {
       });
     }
   }
+  @Get()
+  async getTotalLevel() {
+    try {
+      const result = await this.questionsService.getTotalLevel();
+      return {
+        message: 'got_total_level_successfully',
+        statusCode: 200,
+        data: result,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException({
+        message: error.message || 'got_total_level_question',
+        error: error.toString(),
+      });
+    }
+  }
 }
