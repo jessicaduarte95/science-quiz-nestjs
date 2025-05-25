@@ -18,7 +18,9 @@
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
-    "generate-migration": "npx sequelize-cli migration:generate --migrations-path ./src/database/migrations --name"
+    "generate-migration": "npx sequelize-cli migration:generate --migrations-path ./src/database/migrations --name",
+    "migrate-dev": "sequelize-cli db:migrate --config config/development.json --env database --migrations-path ./src/database/migrations",
+    "drop-table": "npx sequelize-cli db:migrate:undo --config config/development.json --env database --migrations-path ./src/database/migrations --name"
   },
   "sequelize": {
     "migration-path": "./src/database/migrations",
