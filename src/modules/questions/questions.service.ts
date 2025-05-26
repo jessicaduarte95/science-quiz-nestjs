@@ -11,8 +11,14 @@ export class QuestionsService {
     return createQuestionDto;
   }
 
-  getQuestionsByLevel(level: number) {
-    return `This action returns a #${level} question`;
+  async getQuestionsByLevel(level: number) {
+    try {
+      // Obtém as questões de determinado nível
+      const result = await this.questionsRepository.findQuestionsByLevel(level);
+      return result;
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 
   async getTotalLevel() {

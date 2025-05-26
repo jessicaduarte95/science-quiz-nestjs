@@ -33,9 +33,9 @@ export class QuestionsController {
   }
 
   @Get(':level')
-  getQuestionsByLevel(@Param('level') level: string) {
+  async getQuestionsByLevel(@Param('level') level: string) {
     try {
-      const result = this.questionsService.getQuestionsByLevel(+level);
+      const result = await this.questionsService.getQuestionsByLevel(+level);
       return {
         message: 'got_questions_successfully',
         statusCode: 200,

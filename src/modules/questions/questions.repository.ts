@@ -8,6 +8,15 @@ export class QuestionsRepository {
     @InjectModel(QuestionsModel)
     private readonly questionModel: typeof QuestionsModel,
   ) {}
+
+  async findQuestionsByLevel(level: number) {
+    return await this.questionModel.findAll({
+      where: {
+        level,
+      },
+    });
+  }
+
   async findTotalLevel() {
     return await this.questionModel.max('level');
   }
