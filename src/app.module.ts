@@ -3,6 +3,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { QuestionsModule } from './modules/questions/questions.module';
+import { OptionsModule } from './modules/options/options.module';
 import * as config from 'config';
 
 const db = config.get<any>('database');
@@ -20,6 +21,7 @@ const db = config.get<any>('database');
       synchronize: true,
     }),
     QuestionsModule,
+    OptionsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
