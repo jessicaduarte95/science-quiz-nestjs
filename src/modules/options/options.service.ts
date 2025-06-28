@@ -1,26 +1,21 @@
 import { Injectable } from '@nestjs/common';
 import { CreateOptionDto } from './dto/create-option.dto';
-import { UpdateOptionDto } from './dto/update-option.dto';
+import { OptionsRepository } from './options.repository';
 
 @Injectable()
 export class OptionsService {
+  constructor(private readonly optionsRepository: OptionsRepository) {}
+
   create(createOptionDto: CreateOptionDto) {
+    console.log('createOptionDto', createOptionDto);
     return 'This action adds a new option';
   }
-
-  findAll() {
-    return `This action returns all options`;
-  }
-
-  findOne(id: number) {
-    return `This action returns a #${id} option`;
-  }
-
-  update(id: number, updateOptionDto: UpdateOptionDto) {
-    return `This action updates a #${id} option`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} option`;
+  async getOptionsByLevel(level: number) {
+    try {
+      // Obtém as opções de determinado nível
+      return await this.optionsRepository.findOptionsByLevel(level);
+    } catch (error) {
+      throw new Error(error);
+    }
   }
 }

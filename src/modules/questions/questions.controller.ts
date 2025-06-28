@@ -33,7 +33,7 @@ export class QuestionsController {
   }
 
   @Get(':level')
-  async getQuestionsByLevel(@Param('level') level: string) {
+  async getQuestionsByLevel(@Param('level') level: number) {
     try {
       const result = await this.questionsService.getQuestionsByLevel(+level);
       return {
@@ -43,7 +43,7 @@ export class QuestionsController {
       };
     } catch (error) {
       throw new InternalServerErrorException({
-        message: error.message || 'got_questions_question',
+        message: error.message || 'got_questions',
         error: error.toString(),
       });
     }

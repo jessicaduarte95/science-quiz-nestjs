@@ -1,7 +1,13 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Param,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { OptionsService } from './options.service';
 import { CreateOptionDto } from './dto/create-option.dto';
-import { UpdateOptionDto } from './dto/update-option.dto';
 
 @Controller('options')
 export class OptionsController {
@@ -12,23 +18,20 @@ export class OptionsController {
     return this.optionsService.create(createOptionDto);
   }
 
-  @Get()
-  findAll() {
-    return this.optionsService.findAll();
-  }
-
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.optionsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateOptionDto: UpdateOptionDto) {
-    return this.optionsService.update(+id, updateOptionDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.optionsService.remove(+id);
+  @Get(':level')
+  async getOptionsByLevel(@Param('level') level: number) {
+    try {
+      const result = await this.optionsService.getOptionsByLevel(+level);
+      return {
+        message: 'got_options_question_successfully',
+        statusCode: 200,
+        data: result,
+      };
+    } catch (error) {
+      throw new InternalServerErrorException({
+        message: error.message || 'got_options_question',
+        error: error.toString(),
+      });
+    }
   }
 }

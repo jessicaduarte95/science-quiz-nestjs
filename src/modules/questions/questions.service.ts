@@ -14,8 +14,7 @@ export class QuestionsService {
   async getQuestionsByLevel(level: number) {
     try {
       // Obtém as questões de determinado nível
-      const result = await this.questionsRepository.findQuestionsByLevel(level);
-      return result;
+      return await this.questionsRepository.findQuestionsByLevel(level);
     } catch (error) {
       throw new Error(error);
     }
